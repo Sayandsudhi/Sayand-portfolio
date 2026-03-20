@@ -37,7 +37,7 @@ const ProjectForm = ({ project, onClose, onRefresh }) => {
         data.append('image', image);
       }
 
-      const url = project ? `http://localhost:5000/api/projects/${project._id}` : 'http://localhost:5000/api/projects';
+      const url = project ? `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/projects/${project._id}` : (import.meta.env.VITE_API_URL || "http://localhost:5000") + '/api/projects';
       const method = project ? 'put' : 'post';
 
       await axios[method](url, data, {

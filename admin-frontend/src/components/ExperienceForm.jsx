@@ -20,7 +20,7 @@ const ExperienceForm = ({ experience, onClose, onRefresh }) => {
     setLoading(true);
     
     try {
-      const url = experience ? `http://localhost:5000/api/experience/${experience._id}` : 'http://localhost:5000/api/experience';
+      const url = experience ? `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/experience/${experience._id}` : (import.meta.env.VITE_API_URL || "http://localhost:5000") + '/api/experience';
       const method = experience ? 'put' : 'post';
 
       await axios[method](url, formData);

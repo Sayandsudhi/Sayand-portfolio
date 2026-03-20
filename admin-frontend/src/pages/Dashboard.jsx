@@ -22,8 +22,8 @@ const Dashboard = () => {
   const fetchData = async () => {
     try {
       const [projRes, expRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/projects'),
-        axios.get('http://localhost:5000/api/experience')
+        axios.get((import.meta.env.VITE_API_URL || "http://localhost:5000") + '/api/projects'),
+        axios.get((import.meta.env.VITE_API_URL || "http://localhost:5000") + '/api/experience')
       ]);
       setProjects(projRes.data);
       setExperiences(expRes.data);
@@ -35,7 +35,7 @@ const Dashboard = () => {
   const handleDelete = async (type, id) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/${type}/${id}`);
+        await axios.delete(`${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/${type}/${id}`);
         fetchData();
       } catch (error) {
         console.error('Error deleting:', error);
