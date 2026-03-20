@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { MapPin, GraduationCap } from 'lucide-react';
+import ProfileImage3D from './ProfileImage3D';
 
 const About = () => {
   const containerRef = useRef(null);
@@ -20,10 +21,15 @@ const About = () => {
       <motion.div style={{ y: y1 }} className="absolute bottom-10 left-10 w-96 h-96 bg-[#4facfe]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row gap-20">
+        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:items-center">
           
+          {/* Left: 3D Profile Image */}
+          <div className="w-full max-w-[280px] lg:w-[25%] shrink-0">
+            <ProfileImage3D />
+          </div>
+
           {/* Main Text Content */}
-          <div className="flex-1 space-y-8">
+          <div className="flex-1 space-y-8 w-full">
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -57,7 +63,7 @@ const About = () => {
           </div>
 
           {/* Cards / Highlights */}
-          <div className="flex-[0.8] flex flex-col gap-6 relative">
+          <div className="w-full lg:w-[35%] flex flex-col gap-6 relative shrink-0">
             <motion.div 
               style={{ y: y1 }}
               className="absolute -left-10 md:-left-20 top-1/2 w-[1px] h-32 bg-gradient-to-b from-neon to-transparent hidden lg:block"
