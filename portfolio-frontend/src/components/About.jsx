@@ -21,13 +21,8 @@ const About = () => {
       <motion.div style={{ y: y1 }} className="absolute bottom-10 left-10 w-96 h-96 bg-[#4facfe]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:items-center">
+        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row gap-16 items-center lg:items-center">
           
-          {/* Left: 3D Profile Image */}
-          <div className="w-full max-w-[280px] lg:w-[25%] shrink-0">
-            <ProfileImage3D />
-          </div>
-
           {/* Main Text Content */}
           <div className="flex-1 space-y-8 w-full">
             <motion.div 
@@ -62,8 +57,8 @@ const About = () => {
             </motion.div>
           </div>
 
-          {/* Cards / Highlights */}
-          <div className="w-full lg:w-[35%] flex flex-col gap-6 relative shrink-0">
+          {/* Right Column: Education & Image */}
+          <div className="w-full lg:w-[35%] flex flex-col gap-10 relative shrink-0">
             <motion.div 
               style={{ y: y1 }}
               className="absolute -left-10 md:-left-20 top-1/2 w-[1px] h-32 bg-gradient-to-b from-neon to-transparent hidden lg:block"
@@ -89,30 +84,10 @@ const About = () => {
               </p>
             </motion.div>
 
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="p-8 border border-white/10 rounded-3xl bg-white/5 backdrop-blur-md hover:border-neon hover:shadow-[0_0_30px_rgba(0,242,254,0.1)] transition-all duration-500 group"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-[#4facfe]/10 rounded-xl text-[#4facfe] group-hover:scale-110 transition-transform">
-                  <MapPin size={24} />
-                </div>
-                <h4 className="text-2xl font-bold">Location</h4>
-              </div>
-              <h5 className="text-lg font-medium text-white">Thrissur, India</h5>
-              <div className="w-full h-32 mt-4 rounded-xl overflow-hidden relative">
-                {/* Decorative Map BG */}
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20" />
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#4facfe]/20 to-neon/20 mix-blend-overlay" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-3 h-3 bg-neon rounded-full animate-ping absolute" />
-                  <div className="w-3 h-3 bg-neon rounded-full" />
-                </div>
-              </div>
-            </motion.div>
+            {/* The New Minimal 3D Profile Frame replacing Location */}
+            <div className="w-full h-full lg:mt-2 flex items-center justify-center">
+              <ProfileImage3D />
+            </div>
 
           </div>
         </motion.div>

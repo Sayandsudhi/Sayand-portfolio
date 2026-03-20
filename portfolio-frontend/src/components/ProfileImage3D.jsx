@@ -5,8 +5,9 @@ const ProfileImage3D = () => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const rotateX = useTransform(y, [-100, 100], [15, -15]);
-  const rotateY = useTransform(x, [-100, 100], [-15, 15]);
+  // Subtle and elegant tilt effect
+  const rotateX = useTransform(y, [-100, 100], [8, -8]);
+  const rotateY = useTransform(x, [-100, 100], [-8, 8]);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -20,60 +21,54 @@ const ProfileImage3D = () => {
   };
 
   return (
-    <div className="relative w-full max-w-sm mx-auto aspect-[3/4] perspective-1000 group">
+    <div className="relative w-full max-w-sm aspect-[4/5] mx-auto perspective-1000 group">
       <motion.div
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl transition-all duration-200 ease-out"
-        initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
-        whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+        className="relative w-full h-full cursor-crosshair"
+        initial={{ opacity: 0, scale: 0.9, y: 30 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        {/* Glowing backdrop shadow behind the image layer */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-tr from-[#00f2fe] to-[#4facfe] blur-xl opacity-30 group-hover:opacity-60 transition-opacity duration-500" 
-          style={{ transform: "translateZ(-40px)" }}
-        />
+        {/* Animated Gradient Border using ::before-like div */}
+        <div className="absolute -inset-[3px] rounded-3xl bg-gradient-to-tr from-[#00f2fe] via-transparent to-[#4facfe] opacity-50 group-hover:opacity-100 blur-[2px] transition-all duration-700" style={{ transform: "translateZ(-10px)" }}></div>
+        <div className="absolute -inset-[3px] rounded-3xl bg-gradient-to-b from-transparent via-[#4facfe] to-[#00f2fe] opacity-30 group-hover:opacity-60 blur-lg transition-all duration-700" style={{ transform: "translateZ(-20px)" }}></div>
         
-        {/* Inner Image Container */}
-        <div className="absolute inset-0 border-[2px] border-white/10 rounded-3xl overflow-hidden bg-[#02050E] shadow-[0_0_30px_rgba(0,242,254,0.15)] group-hover:shadow-[0_0_50px_rgba(0,242,254,0.3)] transition-all duration-500">
-          <img 
-            src="/profile.png" 
-            alt="Profile" 
-            className="w-full h-full object-cover rounded-3xl scale-105 group-hover:scale-110 transition-transform duration-700 ease-out"
-            onError={(e) => {
-              // Fallback to a sleek placeholder if /profile.png is missing
-              e.target.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop"; 
-            }}
-          />
+        {/* Dark Inner Container for Frame */}
+        <div className="absolute inset-0 rounded-[22px] bg-[#02050E] overflow-hidden border border-white/10 shadow-2xl">
           
-          {/* Subtle overlay gradient to blend with the dark theme and neon colors */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#02050E] via-transparent to-transparent opacity-80" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#4facfe]/20 to-transparent mix-blend-overlay" />
+          {/* Internal Parallax Image */}
+          <motion.div 
+            className="w-full h-full relative"
+            style={{ transform: "translateZ(30px)" }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            <img 
+              src="/profile.jpg" 
+              alt="Sayand" 
+              className="w-full h-full object-cover scale-[1.02] group-hover:scale-110 transition-transform duration-700 ease-in-out"
+              onError={(e) => {
+                e.target.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop"; 
+              }}
+            />
+            {/* Elegant vignette overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#02050E]/90 via-transparent to-transparent opacity-80" />
+            
+            {/* Soft sophisticated lighting effect */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#00f2fe]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay" />
+          </motion.div>
+
         </div>
         
-        {/* Interactive Shine Effect */}
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
-          style={{ transform: "translateZ(30px)" }}
-        />
+        {/* Top reflections */}
+        <div className="absolute top-0 inset-x-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent opacity-50 group-hover:opacity-20 transition-opacity duration-700 rounded-t-[22px] pointer-events-none" style={{ transform: "translateZ(40px)" }} />
+        
       </motion.div>
 
-      {/* Abstract Floating Orbs around the image */}
-      <motion.div 
-        animate={{ y: [-15, 15, -15], rotate: [0, 10, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-6 -right-6 w-16 h-16 rounded-full border border-[#00f2fe]/30 bg-[#00f2fe]/10 backdrop-blur-md pointer-events-none"
-        style={{ transform: "translateZ(50px)" }}
-      />
-      <motion.div 
-        animate={{ y: [15, -15, 15], rotate: [0, -10, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute -bottom-10 -left-6 w-20 h-20 rounded-full border border-[#4facfe]/30 bg-[#4facfe]/10 backdrop-blur-md pointer-events-none"
-        style={{ transform: "translateZ(30px)" }}
-      />
+      {/* Ambient background glow */}
+      <div className="absolute inset-0 -z-10 bg-[#00f2fe] blur-[90px] opacity-10 group-hover:opacity-30 transition-opacity duration-700 rounded-full" />
     </div>
   );
 };
