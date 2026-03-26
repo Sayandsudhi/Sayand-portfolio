@@ -1,7 +1,7 @@
 {
   "version": 2,
   "env": {
-    "MONGODB_URI": "mongodb+srv://sayandsudhi_db_user:sayand%40111@cluster0.fldzkad.mongodb.net/portfolio_db?retryWrites=true&w=majority&appName=Cluster0",
+    "MONGODB_URI": "mongodb+srv://sayandsudhi_db_user:QSCNL5Oxqq4HWDJN@cluster0.fldzkad.mongodb.net/portfolio_db?retryWrites=true&w=majority&appName=Cluster0",
     "JWT_SECRET": "sayand_portfolio_secret_key_2026",
     "CLOUDINARY_CLOUD_NAME": "your_cloud_name",
     "CLOUDINARY_API_KEY": "your_api_key",
